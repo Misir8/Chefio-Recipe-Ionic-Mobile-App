@@ -1,0 +1,41 @@
+<ion-content>
+  <div class="container">
+    <h1 class="bold ion-text-center mt-5">Welcome Back!</h1>
+    <p class="subtitle-2 ion-text-center">Please enter your account here</p>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+          <ion-item class="input-round" lines="none">
+            <ion-input formControlName="id" placeholder="Email or phone number"></ion-input>
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+          </ion-item>
+          <ion-item class="input-round mt-2" lines="none">
+            <ion-input formControlName="password" placeholder="Password"></ion-input>
+            <ion-icon name="key-outline" slot="start"></ion-icon>
+            <ion-icon name="eye" slot="end"></ion-icon>
+          </ion-item>
+          <div class="flex ion-justify-content-end mt-2">
+            <ion-nav-link>Forgot password?</ion-nav-link>
+          </div>
+          <ion-button
+            [disabled]="loginForm.invalid"
+            type="submit"
+            size="large"
+            class="mt-5"
+            expand="block"
+            shape="round"
+            color="success"
+          >Login</ion-button>
+          <p class="subtitle-2 ion-text-center">Or continue with</p>
+          <ion-button size="large" expand="block" shape="round" color="danger">
+            <ion-icon name="logo-google"></ion-icon> &nbsp;
+            Google
+          </ion-button>
+          <p class="ion-text-center">Don’t have any account? <ion-nav-link class="success">Sign up</ion-nav-link></p>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
