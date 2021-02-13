@@ -10,8 +10,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  rivate;
-  currentUserSource = new BehaviorSubject<IUser>(null);
+  private currentUserSource = new BehaviorSubject<IUser>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private storage: Storage) {
@@ -20,6 +19,16 @@ export class AuthService {
   loginWithEmail(value: any) {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
     ${environment.firebaseConfig.apiKey}`, value)
+      .pipe(
+        map((user: IUser) => {
+          this.setUserToStorage(user);
+        })
+      );
+  }
+
+  register(values: any) {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=
+    ${environment.firebaseConfig.apiKey}`, values)
       .pipe(
         map((user: IUser) => {
           this.setUserToStorage(user);
