@@ -8,14 +8,33 @@
       <ion-col>
         <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
           <ion-item class="input-round" lines="none">
-            <ion-input formControlName="id" placeholder="Email or phone number"></ion-input>
+            <ion-input formControlName="email" placeholder="Email or phone number"></ion-input>
             <ion-icon name="mail-outline" slot="start"></ion-icon>
           </ion-item>
           <ion-item class="input-round mt-2" lines="none">
-            <ion-input formControlName="password" placeholder="Password"></ion-input>
+            <ion-input [type]="inputType" formControlName="password" placeholder="Password"></ion-input>
             <ion-icon name="key-outline" slot="start"></ion-icon>
-            <ion-icon name="eye" slot="end"></ion-icon>
+            <ion-icon name="eye" (click)="inputTypeToggle()" slot="end"></ion-icon>
           </ion-item>
+          <div class="mt-2">
+            <p>Your Password must contain:</p>
+            <ion-text>
+              <p class="flex ion-align-items-center" [class.secondary]="password.errors?.required">
+                <ion-icon class="icon-medium"
+                          [class.success]="!password.errors?.required"
+                          name="checkmark-circle-outline"></ion-icon>
+                <ion-label class="ml-1">Required</ion-label>
+              </p>
+            </ion-text>
+            <ion-text>
+              <p class="flex ion-align-items-center" [class.secondary]="password.errors?.minlength || password.errors?.required">
+                <ion-icon class="icon-medium"
+                          [class.success]="!password.errors?.minlength && !password.errors?.required"
+                          name="checkmark-circle-outline"></ion-icon>
+                <ion-label class="ml-1">Atleast 6 characters</ion-label>
+              </p>
+            </ion-text>
+          </div>
           <div class="flex ion-justify-content-end mt-2">
             <ion-nav-link>Forgot password?</ion-nav-link>
           </div>
